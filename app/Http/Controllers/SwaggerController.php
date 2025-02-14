@@ -8,13 +8,8 @@ use Illuminate\Support\Facades\Http;
 /**
  *
  * @OA\Server(
- *     url="https://ciefmate-production.up.railway.app",
+ *     url="https://chrfmate-production.up.railway.app",
  *     description="HTTPS Server"
- * )
- *
- * @OA\Server(
- *     url="http://127.0.0.1:8001",
- *     description="HTTP Server"
  * )
  *
  * @OA\SecurityScheme(
