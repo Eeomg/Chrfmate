@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Http;
  * )
  *
  * @OA\Server(
- *     url="http://127.0.0.1:8000",
+ *     url="http://127.0.0.1:8001",
  *     description="HTTP Server"
  * )
  *
@@ -162,7 +162,4 @@ use Illuminate\Support\Facades\Http;
 
 class SwaggerController extends Controller
 {
-    public function index(){
-        Http::
-    }
 }
