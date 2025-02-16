@@ -15,11 +15,11 @@
     },
     "servers": [
         {
-            "url": "https://ciefmate-production.up.railway.app",
+            "url": "https://chrfmate-production.up.railway.app",
             "description": "HTTPS Server"
         },
         {
-            "url": "http://127.0.0.1:8001",
+            "url": "http://127.0.0.1:8000",
             "description": "HTTP Server"
         }
     ],
@@ -178,36 +178,19 @@
                         "multipart/form-data": {
                             "schema": {
                                 "required": [
-                                    "name",
                                     "email",
-                                    "phone",
-                                    "password",
-                                    "avatar"
+                                    "password"
                                 ],
                                 "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "example": "John Doe"
-                                    },
                                     "email": {
                                         "type": "string",
                                         "format": "email",
                                         "example": "user@example.com"
                                     },
-                                    "phone": {
-                                        "type": "string",
-                                        "example": "0199021098"
-                                    },
                                     "password": {
                                         "type": "string",
                                         "format": "password",
                                         "example": "password"
-                                    },
-                                    "avatar": {
-                                        "description": "User avatar image",
-                                        "type": "string",
-                                        "format": "binary",
-                                        "example": "avatar.jpg"
                                     }
                                 },
                                 "type": "object"

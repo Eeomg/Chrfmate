@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Http;
  *     url="https://chrfmate-production.up.railway.app",
  *     description="HTTPS Server"
  * )
+ * @OA\Server(
+ *     url="http://127.0.0.1:8000",
+ *     description="HTTP Server"
+ * )
  *
  * @OA\SecurityScheme(
  *     securityScheme="Bearer",

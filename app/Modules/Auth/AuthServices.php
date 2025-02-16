@@ -4,9 +4,7 @@ namespace App\Modules\Auth;
 
 use App\Facades\ApiResponse;
 use App\Facades\FileHandeler;
-use App\Modules\Members\Member;
 use App\Modules\Users\User;
-use App\Services\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -16,15 +14,14 @@ class AuthServices
     public function handleSocialLogin($user,$provider)
     {
 
-        $_user = Member::where('provider_id',$user->id)->first();
+        $_user = User::where('provider_id',$user->id)->first();
         if ($_user) {
-            dd($_user);
             $token = $this->generateToken($_user);
             return $this->respondWithToken($_user,$token);
         }
 
         $userData = $this->prepareUserData($user,$provider);
-        $user = Member::create($userData);
+        $user = User::create($userData);
         $token = $this->generateToken($user);
         return $this->respondWithToken($user,$token);
     }
@@ -47,13 +44,13 @@ class AuthServices
         $avatar = $this->avatarHandeler($request->avatar, $provider);
 
         return [
-            'name' => $request->name,
+            'name' => $request->name ?? 'new user',
             'email' => $request->email,
             'password' => Hash::make($password),
-            'phone' => $request->phone,
+            'phone' => $request->phone ?? null,
             'provider' => $provider,
             'provider_id' => $request->id,
-            'avatar' => $avatar
+            'avatar' => $avatar ?? 'default.png',
         ];
     }
 
@@ -72,7 +69,7 @@ class AuthServices
      * @param  string $token
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Foundation\Application|Response
      */
-    public function respondWithToken($user,$token)
+    public function respondWithToken($user,$token,$message = 'logged in successfully')
     {
         return ApiResponse::success([
             [
@@ -80,5 +77,5 @@ class AuthServices
                 'token_type' => 'bearer',
                 'user' => $user
             ]
-        ],'logged in successfully');
+        ],$message);
     }}

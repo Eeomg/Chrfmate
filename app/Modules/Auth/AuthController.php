@@ -114,18 +114,9 @@ class AuthController extends Controller
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
      *             @OA\Schema(
-     *                 required={"name", "email", "phone", "password", "avatar"},
-     *                 @OA\Property(property="name", type="string", example="John Doe"),
+     *                 required={"email", "password"},
      *                 @OA\Property(property="email", type="string", format="email", example="user@example.com"),
-     *                 @OA\Property(property="phone", type="string", example="0199021098"),
-     *                 @OA\Property(property="password", type="string", format="password", example="password"),
-     *                 @OA\Property(
-     *                     property="avatar",
-     *                     type="string",
-     *                     format="binary",
-     *                     description="User avatar image",
-     *                     example="avatar.jpg"
-     *                 )
+     *                 @OA\Property(property="password", type="string", format="password", example="password")
      *             )
      *         )
      *     ),

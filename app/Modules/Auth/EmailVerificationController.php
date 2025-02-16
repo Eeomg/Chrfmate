@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Validator;
 
 class EmailVerificationController extends Controller
 {
+
+    public function __construct(public AuthServices $authServices)
+    {
+
+    }
+
     /**
      * @OA\Post(
      *     path="/api/otp-verification",
@@ -25,11 +31,23 @@ class EmailVerificationController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="OTP verified successfully",
+     *         description="Login successful",
      *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Verified successfully.")
+     *             @OA\Property(property="code", type="integer", example=200),
+     *             @OA\Property(property="message", type="string", example="Logged in successfully"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 @OA\Property(property="access_token", type="string", example="17|e6n7vBgUMKDFUzM5NAZoPE8QkJsp0G4K31DDoS40185d2895"),
+     *                 @OA\Property(property="token_type", type="string", example="bearer"),
+     *                 @OA\Property(
+     *                     property="user",
+     *                     type="object",
+     *                     ref="#/components/schemas/User"
+     *                 )
+     *             )
      *         )
-     *     ),
+     *      ),
      *     @OA\Response(
      *         response=422,
      *         description="Validation Error",
@@ -59,11 +77,13 @@ class EmailVerificationController extends Controller
 
             $user = User::where('email', $request->email)->firstOrFail();
             $user->verified = true;
+            $user->rules = 'Guest';
             $user->save();
 
             DB::table('otps')->where('identifier', $request->email)->delete();
+            $token = $this->authServices->generateToken($user);
 
-            return ApiResponse::message('Verified successfully.');
+            return  $this->authServices->respondWithToken($user, $token, 'verified successfully');
         });
     }
 

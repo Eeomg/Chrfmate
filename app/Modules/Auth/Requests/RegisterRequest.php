@@ -22,11 +22,8 @@ class RegisterRequest extends AbstractApiRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
-            'phone' => 'required|string|unique:users,phone',
-            'password' => 'required|string',
-            'avatar' => 'image|mimes:jpeg,png,jpg|max:5000'
+            'password' => 'required|string|min:6',
         ];
     }
 }

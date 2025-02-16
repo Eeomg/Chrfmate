@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->default('new user');
             $table->string('email')->unique();
             $table->string('phone')->nullable()->unique();
             $table->string('password');
@@ -32,6 +32,12 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['workspace_id']);
+            $table->dropForeign(['section_id']);
+
+            $table->dropColumn(['workspace_id', 'section_id']);
+        });
         Schema::dropIfExists('users');
     }
 };

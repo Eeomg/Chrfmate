@@ -35,7 +35,6 @@ class EmailVerificationNotification extends Notification
         $code = (new Otp)->generate($notifiable->email,'numeric', 6, 60)->token;
         return (new MailMessage)
                     ->subject('Chef Mate: Verify Your Email Address')
-                    ->greeting("Hello!, {$notifiable->name}")
                     ->line('Use this code to verify your email address.')
                     ->line('code: ' . $code )
                     ->line('Thank you for using our application!');
