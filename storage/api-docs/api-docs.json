@@ -368,14 +368,34 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "OTP verified successfully",
+                        "description": "Login successful",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
                                         "message": {
                                             "type": "string",
-                                            "example": "Verified successfully."
+                                            "example": "Logged in successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "access_token": {
+                                                    "type": "string",
+                                                    "example": "17|e6n7vBgUMKDFUzM5NAZoPE8QkJsp0G4K31DDoS40185d2895"
+                                                },
+                                                "token_type": {
+                                                    "type": "string",
+                                                    "example": "bearer"
+                                                },
+                                                "user": {
+                                                    "$ref": "#/components/schemas/User"
+                                                }
+                                            },
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
