@@ -48,6 +48,7 @@ class AuthServices
             'email' => $request->email,
             'password' => Hash::make($password),
             'phone' => $request->phone ?? null,
+            'verified' => ($provider != 'email'),
             'provider' => $provider,
             'provider_id' => $request->id,
             'avatar' => $avatar ?? 'default.png',
