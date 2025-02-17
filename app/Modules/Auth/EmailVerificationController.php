@@ -143,7 +143,7 @@ class EmailVerificationController extends Controller
             return ApiResponse::validationError($validation->errors()->first());
         }
 
-        $data = $validation->validated();
+        $data = $validation->getData();
 
         DB::table('otps')->where('identifier', $data['email'])->delete();
 

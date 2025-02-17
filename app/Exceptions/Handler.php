@@ -49,6 +49,14 @@ class Handler extends ExceptionHandler
             return ApiResponse::unauthrized();
         });
 
+        $this->renderable(function (ModelNotFoundException $e, $request) {
+            return ApiResponse::notFound();
+        });
+
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            return ApiResponse::notFound();
+        });
+
         $this->renderable(function (\Exception $e, $request) {
             return ApiResponse::serverError($e->getMessage());
         });
