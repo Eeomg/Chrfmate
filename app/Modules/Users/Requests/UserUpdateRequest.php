@@ -26,7 +26,7 @@ class UserUpdateRequest extends AbstractApiRequest
             'name' => ['nullable', 'string', 'max:255'],
             'email' => ['nullable', 'string', 'email', 'max:255','unique:users,email,'.$id],
             'phone' => ['nullable', 'string', 'max:255','unique:users,phone,'.$id],
-            'avatar' => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'avatar' => ['sometimes', 'file', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'password' => ['nullable', 'string', 'min:8'],
         ];
     }
