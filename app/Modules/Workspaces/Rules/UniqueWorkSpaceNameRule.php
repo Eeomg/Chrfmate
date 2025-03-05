@@ -30,7 +30,7 @@ class UniqueWorkSpaceNameRule implements ValidationRule
             $validation =  $query->exists();
 
             if ($validation) {
-                $fail("The workspace is exists.");
+                $fail("The name of workspace is taken.");
             }
         } catch (\Exception $e) {
             $fail('bad format');
