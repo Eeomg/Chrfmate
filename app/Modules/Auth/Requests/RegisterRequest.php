@@ -2,6 +2,7 @@
 
 namespace App\Modules\Auth\Requests;
 
+use App\Modules\Users\User;
 use App\Http\Requests\AbstractApiRequest;
 
 class RegisterRequest extends AbstractApiRequest
@@ -22,7 +23,15 @@ class RegisterRequest extends AbstractApiRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|unique:users,email',
+            'email' => [
+                'required',
+                'email',
+                function ($attribute, $value, $fail) {
+                    if (User::where('email', $value)->where('verified',false)->exists()) {
+                        $fail('Email exists but not verified.');
+                    }
+                },
+        ],
             'password' => 'required|string|min:6',
         ];
     }

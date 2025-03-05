@@ -17,7 +17,7 @@ class UserVirifiedMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::user()->verified) {
+        if (!$request()->user()->verified) {
             return ApiResponse::unauthrized('user are not verified');
         }
         return $next($request);

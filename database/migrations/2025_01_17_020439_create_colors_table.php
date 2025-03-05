@@ -23,6 +23,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropForeign('');
         Schema::dropIfExists('colors');
     }
 };
