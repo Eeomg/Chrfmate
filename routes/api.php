@@ -36,7 +36,7 @@ Route::post('resend-otp', [EmailVerificationController::class, 'reSendOtp']);
 Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect']);
 Route::get('auth/{provider}/callback', [SocialLoginController::class, 'callBack']);
 
-Route::middleware(['auth:api','verified'])->group(function () {
+Route::middleware(['auth:sanctum','verified'])->group(function () {
     Route::delete('/logout',[AuthController::class,'logout'])->middleware('auth:sanctum');
 
     Route::prefix('user')->controller(UsersController::class)->group(function () {
@@ -45,10 +45,8 @@ Route::middleware(['auth:api','verified'])->group(function () {
         Route::delete('/destroy','destroy');
     });
 
-    Route::post('workspaces', [WorkspaceController::class,'store']);
-    Route::get('workspaces/{workspace}', [WorkspaceController::class,'show']);
+    Route::apiResource('workspaces', WorkspaceController::class);
     Route::middleware(RegisteredInWorkspaceMiddleware::class)->group(function () {
-        Route::apiResource('workspaces', WorkspaceController::class)->except(['store','show']);
         Route::apiResource('category',CategoryController::class);
         Route::apiResource('section',RecipeCommentsController::class);
         Route::apiResource('warehouse',WarehouseController::class)->except(['show']);

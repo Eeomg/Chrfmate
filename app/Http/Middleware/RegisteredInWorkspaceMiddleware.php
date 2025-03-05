@@ -16,7 +16,7 @@ class RegisteredInWorkspaceMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(is_null($request->user()->workspace)) {
+        if(is_null($request->user()->workspace_id)) {
             return ApiResponse::message('forbidden',Response::HTTP_FORBIDDEN);
         }
         return $next($request);
