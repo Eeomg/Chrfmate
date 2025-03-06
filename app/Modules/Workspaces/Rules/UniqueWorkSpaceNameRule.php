@@ -23,7 +23,7 @@ class UniqueWorkSpaceNameRule implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         try {
-            $query = Workspace::where('name', $value);
+            $query = Workspace::userWorkspaces()->where('name', $value);
             if ($this->id) {
                 $query = $query->where('id', '<>', $this->id);
             }
