@@ -32,7 +32,7 @@ class WorkspaceStoreRequest extends AbstractApiRequest
     public function rules(): array
     {
         return [
-            'name' => ['required','string','unique:workspaces,name'],
+            'name' => ['required','string',new UniqueWorkSpaceNameRule()],
             'color_id' => 'string|exists:colors,id'
         ];
     }

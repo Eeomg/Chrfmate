@@ -32,7 +32,7 @@ class WorkspaceUpdateRequest extends AbstractApiRequest
     {
         $id = request('workspace');
         return [
-            'name' => ['nullable','string',new UniqueWorkSpaceNameRule($id)],
+            'name' => ['nullable', 'string', new UniqueWorkSpaceNameRule($id)],
             'color' => 'nullable|string|exists:colors,id'
         ];
     }
