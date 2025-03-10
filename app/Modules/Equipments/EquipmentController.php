@@ -117,9 +117,9 @@ class EquipmentController extends Controller
                 'description'  => $request->description,
                 'quantity' => $request->quantity,
             ];
-            if($request->has('cover')){
-                $data['cover']  = FileHandeler::storeFile($request->cover, 'equipments', 'jpg');
-            }
+            // if($request->has('cover')){
+            //     $data['cover']  = FileHandeler::storeFile($request->cover, 'equipments', 'jpg');
+            // }
 
             $equipment = Equipment::create($data);
             return ApiResponse::created(new EquipmentsResources($equipment));

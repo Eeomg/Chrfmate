@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->string('cover');
+            $table->string('cover')->nullable();
             $table->string('preparation_time');
             $table->integer('calories')->default(0);
             $table->integer('protein')->default(0);

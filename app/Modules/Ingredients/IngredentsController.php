@@ -118,9 +118,9 @@ class IngredentsController extends Controller
                 'unit' => $request->unit,
                 'quantity' => $request->quantity,
             ];
-            if($request->has('cover')){
-                $data['cover'] = FileHandeler::storeFile($request->cover, 'ingredients', 'jpg');
-            }
+            // if($request->has('cover')){
+            //     $data['cover'] = FileHandeler::storeFile($request->cover, 'ingredients', 'jpg');
+            // }
             $ingredient = Ingredent::create($data);
             return ApiResponse::created(new IngredientsResources($ingredient));
         } catch (\Exception $e) {

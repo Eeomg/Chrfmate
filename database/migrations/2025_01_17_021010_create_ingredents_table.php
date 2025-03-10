@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ingredents', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('cover');
+            $table->string('cover')->nullable();
             $table->text('description')->nullable();
             $table->string('unit');
             $table->string('quantity');

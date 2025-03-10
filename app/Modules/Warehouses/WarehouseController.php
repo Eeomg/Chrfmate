@@ -60,9 +60,9 @@ class WarehouseController extends Controller
                             })->get();
             return ApiResponse::success($warehouse);
         } catch (ModelNotFoundException $e) {
-            return ApiResponse::notFound('this warehouse not found');
+            return ApiResponse::notFound('not found');
         } catch (\Exception $e) {
-            return ApiResponse::serverError($e->getMessage());
+            return ApiResponse::serverError();
         }
     }
 
@@ -117,7 +117,7 @@ class WarehouseController extends Controller
             ]);
             return ApiResponse::created($warehouse);
         } catch (\Exception $e) {
-            return ApiResponse::serverError($e->getMessage());
+            return ApiResponse::serverError();
         }
     }
 
@@ -176,7 +176,7 @@ class WarehouseController extends Controller
             $inventory ->fill($data);
             if($inventory ->isDirty()){
                 $inventory ->save();
-                return ApiResponse::updated($inventory );
+                return ApiResponse::updated($inventory);
             }
             return ApiResponse::message('no changes made');
         } catch (ModelNotFoundException $e) {

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('equipments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('cover');
+            $table->string('cover')->nullable();
             $table->text('description')->nullable();
             $table->string('quantity');
             $table->foreignId('warehouse_id')->nullable()->constrained('warehouses')->cascadeOnDelete();

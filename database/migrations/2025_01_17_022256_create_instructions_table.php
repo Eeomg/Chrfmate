@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('instructions', function (Blueprint $table) {
             $table->id();
             $table->string('timer');
-            $table->string('media');
+            $table->string('media')->nullable();
             $table->tinyInteger('step_no');
             $table->text('description');
             $table->foreignId('recipe_id')->constrained('recipes')->cascadeOnDelete();

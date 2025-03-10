@@ -22,7 +22,7 @@ Trait ControllerTraits
     {
         try{
             $data = $this->updatedDataFormated($request, $request->except($attr));
-            $data[$attr] = FileHandeler::updateFile($request->$attr, $old, $path, $exten);
+            // $data[$attr] = FileHandeler::updateFile($request->$attr, $old, $path, $exten);
             return $data;
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
