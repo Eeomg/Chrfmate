@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 /**
  *
  * @OA\Server(
- *     url="https://chrfmate-production.up.railway.app",
+ *     url="https://chifmate-rg.azurewebsites.net",
  *     description="HTTPS Server"
  * )
  * @OA\Server(
