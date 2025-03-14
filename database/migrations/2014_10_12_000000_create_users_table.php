@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('avatar')->default('default.jpg');
             $table->enum('provider',['email','google'])->default('email');
             $table->enum('rules',['Chef', 'Assistant Chef', 'Trainee', 'Owner', 'Guest'])->default('Guest');
-            $table->string('provider_id')->nullable();
+            $table->text('provider_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

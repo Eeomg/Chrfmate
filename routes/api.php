@@ -33,8 +33,7 @@ Route::post('auth/register', [AuthController::class, 'register']);
 Route::post('auth/login', [AuthController::class, 'login']);
 Route::post('otp-verification', [EmailVerificationController::class, 'otpVerification']);
 Route::post('resend-otp', [EmailVerificationController::class, 'reSendOtp']);
-Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect']);
-Route::get('auth/{provider}/callback', [SocialLoginController::class, 'callBack']);
+Route::post('auth/{provider}', [SocialLoginController::class, 'signIn']);
 
 Route::middleware(['auth:sanctum','verified'])->group(function () {
     Route::delete('/logout',[AuthController::class,'logout'])->middleware('auth:sanctum');

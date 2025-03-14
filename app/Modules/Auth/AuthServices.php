@@ -14,7 +14,7 @@ class AuthServices
     public function handleSocialLogin($user,$provider)
     {
 
-        $_user = User::where('provider_id',$user->id)->first();
+        $_user = User::where('email',$user->email)->first();
         if ($_user) {
             $token = $this->generateToken($_user);
             return $this->respondWithToken($_user,$token);
@@ -50,7 +50,7 @@ class AuthServices
             'phone' => $request->phone ?? null,
             'verified' => ($provider != 'email'),
             'provider' => $provider,
-            'provider_id' => $request->id,
+            'provider_id' => $request->idToken ?? null,
             'avatar' => $avatar ?? 'default.png',
         ];
     }
