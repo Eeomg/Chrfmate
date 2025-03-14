@@ -15,11 +15,11 @@
     },
     "servers": [
         {
-            "url": "https://chrfmate-production.up.railway.app",
+            "url": "https://chifmate-rg.azurewebsites.net",
             "description": "HTTPS Server"
         },
         {
-            "url": "http://127.0.0.1:8000",
+            "url": "http://127.0.0.1:8001",
             "description": "HTTP Server"
         }
     ],
@@ -517,93 +517,64 @@
                 }
             }
         },
-        "/api/auth/{provider}/redirect": {
-            "get": {
+        "/api/auth/google": {
+            "post": {
                 "tags": [
                     "Auth"
                 ],
-                "summary": "Redirect to provider for social login",
-                "operationId": "1b8d5b35a2e70ec519f19ef9273ffd3e",
-                "parameters": [
-                    {
-                        "name": "provider",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "enum": [
-                                "google",
-                                "facebook",
-                                "github"
-                            ]
-                        }
-                    }
-                ],
-                "responses": {
-                    "302": {
-                        "description": "Redirect to provider's login page"
-                    },
-                    "400": {
-                        "description": "Provider not supported",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Provider not supported"
-                                        },
-                                        "code": {
-                                            "type": "integer",
-                                            "example": 400
-                                        }
+                "summary": "social login",
+                "operationId": "9b1150c0d1a7120726c0ff83994b4399",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "sting",
+                                        "example": "user"
                                     },
-                                    "type": "object"
-                                }
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@example.com"
+                                    },
+                                    "avatar": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "idToken": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
                     }
-                }
-            }
-        },
-        "/api/auth/{provider}/callback": {
-            "get": {
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Handle provider callback",
-                "operationId": "7bb032cc8005438d79f4225db04dc265",
-                "parameters": [
-                    {
-                        "name": "provider",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "enum": [
-                                "google",
-                                "facebook",
-                                "github"
-                            ]
-                        }
-                    }
-                ],
+                },
                 "responses": {
-                    "200": {
-                        "description": "Login successful",
+                    "201": {
+                        "description": "User created successfully",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "access_token": {
-                                            "type": "string",
-                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9..."
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 201
                                         },
-                                        "token_type": {
+                                        "message": {
                                             "type": "string",
-                                            "example": "bearer"
+                                            "example": "User created successfully"
                                         },
-                                        "user": {
+                                        "data": {
                                             "$ref": "#/components/schemas/User"
                                         }
                                     },
@@ -612,19 +583,27 @@
                             }
                         }
                     },
-                    "400": {
-                        "description": "Provider not supported",
+                    "422": {
+                        "description": "Validation Error",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Provider not supported"
+                                            "example": "Validation Error"
                                         },
                                         "code": {
                                             "type": "integer",
-                                            "example": 400
+                                            "example": 422
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "email": [
+                                                    "The email field is required."
+                                                ]
+                                            }
                                         }
                                     },
                                     "type": "object"
@@ -3703,15 +3682,31 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "multipart/form-data": {
+                        "application/json": {
                             "schema": {
-                                "required": [
-                                    "avatar"
-                                ],
                                 "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john.doe@example.com"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "010101010"
+                                    },
                                     "avatar": {
                                         "type": "string",
-                                        "format": "binary"
+                                        "format": "binary",
+                                        "example": "image.png"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "newpassword"
                                     }
                                 },
                                 "type": "object"

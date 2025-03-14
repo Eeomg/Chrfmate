@@ -62,3 +62,6 @@ Route::middleware(['auth:sanctum','verified'])->group(function () {
 });
 Route::get('invitation/{id}/accept',[InvitationController::class,'accept'])->name('accept.invitation');
 
+Route::get('osama',function (){
+    return 'osama';
+});
