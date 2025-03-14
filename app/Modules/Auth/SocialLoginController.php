@@ -24,31 +24,39 @@ class SocialLoginController extends Controller
     }
 
     /**
-     * @OA\Get(
-     *     path="/api/auth/{provider}/callback",
-     *     summary="Handle provider callback",
+     * @OA\Post(
+     *     path="/api/auth/google",
+     *     summary="social login",
      *     tags={"Auth"},
-     *     @OA\Parameter(
-     *         name="provider",
-     *         in="path",
+     *     @OA\RequestBody(
      *         required=true,
-     *         @OA\Schema(type="string", enum={"google", "facebook", "github"})
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Login successful",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="access_token", type="string", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9..."),
-     *             @OA\Property(property="token_type", type="string", example="bearer"),
-     *             @OA\Property(property="user", ref="#/components/schemas/User")
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 required={"email", "password"},
+     *                 @OA\Property(property="name", type="string", format="sting", example="user"),
+     *                 @OA\Property(property="email", type="string", format="email", example="user@example.com"),
+     *                 @OA\Property(property="avatar", type="string", format="binary"),
+     *                 @OA\Property(property="idToken", type="string", format="string", example=""),
+     *             )
      *         )
      *     ),
      *     @OA\Response(
-     *         response=400,
-     *         description="Provider not supported",
+     *         response=201,
+     *         description="User created successfully",
      *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Provider not supported"),
-     *             @OA\Property(property="code", type="integer", example=400)
+     *             @OA\Property(property="code", type="integer", example=201),
+     *             @OA\Property(property="message", type="string", example="User created successfully"),
+     *             @OA\Property(property="data", type="object", ref="#/components/schemas/User")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation Error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Validation Error"),
+     *             @OA\Property(property="code", type="integer", example=422),
+     *             @OA\Property(property="errors", type="object", example={"email": {"The email field is required."}})
      *         )
      *     ),
      *     @OA\Response(
